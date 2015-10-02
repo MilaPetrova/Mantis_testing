@@ -44,12 +44,30 @@ class MyProjectHelper:
         if self.project_cache is None:
             wd = self.app.wd
             self.open_project_page()
+
+            projects_table = wd.find_elements_by_tag_name("table")[2]
             project_cache = []
-            for element in wd.find_elements_by_xpath("//div[1]/table/tbody/tr"):
+            for element in projects_table.find_elements_by_tag_name("tr"):
                 cells = element.find_elements_by_tag_name("td")
                 text = cells[0].text
                 project_cache.append(MyProject(name=text))
-            return  project_cache
+            return  project_cache[2:]
+
+    def delete_project(self, name):
+        wd = self.app.wd
+        wd.find_element_by_link_text("%s" % name).click()
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        wd.find_element_by_css_selector("form > input.button").click()
+        #wd.find_element_by_css_selector("input.button").click()
+        #self.contact_cache = None
+
+        alert = wd.switch_to.alert
+        alert.accept()
+
+        #self.app.open_home_page()
+
+
+
 
 
 
