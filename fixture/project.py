@@ -56,15 +56,13 @@ class MyProjectHelper:
     def delete_project(self, name):
         wd = self.app.wd
         wd.find_element_by_link_text("%s" % name).click()
-        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.find_element_by_css_selector("form > input.button").click()
-        #wd.find_element_by_css_selector("input.button").click()
-        #self.contact_cache = None
+        wd.find_element_by_css_selector("input.button").click()
+        self.contact_cache = None
 
-        alert = wd.switch_to.alert
-        alert.accept()
+      
 
-        #self.app.open_home_page()
+
 
 
 
